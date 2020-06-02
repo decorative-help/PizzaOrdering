@@ -13,6 +13,5 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'PizzaController@index')->name('home');
+Route::post('/ordered_pizzas', 'PizzaController@store');
