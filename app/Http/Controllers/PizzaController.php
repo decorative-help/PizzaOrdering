@@ -16,32 +16,24 @@ class PizzaController extends Controller
     {
 
         // get Customer
-        if ($request->session()->has('customer_id')) {
-            $customer_id = $request->session()->get('customer_id');
-            $customer_id = filter_var($customer_id, FILTER_SANITIZE_NUMBER_INT);
+        $customer = Customer::findFromRequest($request);
 
-            $customer = Customer::find($customer_id);
-        }
-        if (isset($customer) && $customer) {
+        // if Customer exists
+        if ($customer) {
             // get Order
             $order = Order::where([
                 ['customer_id', '=', $customer->id],
                 ['is_confirmed', '=', false]
-            ])->latest()->first();
-        }
-
-        if (isset($customer) && $customer && isset($order) && $order) {
+            ])->latest()->firstOrFail();
+            // get OrderedPizzas
             $ordered_pizzas = OrderedPizza::where('order_id', $order->id)->latest()->get();
-        }
-
-        if (isset($ordered_pizzas) && $ordered_pizzas) {
-
+            // show also basket
             return view('pizza.index', [
                 'pizzas' => Pizza::paginate(9),
-                'ordered_pizzas' => $ordered_pizzas,
-                'ordered_pizzas_number' => $ordered_pizzas->count()
+                'ordered_pizzas' => $ordered_pizzas
             ]);
         } else {
+            // show without basket
             return view('pizza.index', [
                 'pizzas' => Pizza::paginate(9),
             ]);
@@ -59,13 +51,8 @@ class PizzaController extends Controller
         $pizza = Pizza::findOrFail($validatedData['id']);
 
         // get Customer
-        if ($request->session()->has('customer_id')) {
-            $customer_id = $request->session()->get('customer_id');
-            $customer_id = filter_var($customer_id, FILTER_SANITIZE_NUMBER_INT);
-
-            $customer = Customer::find($customer_id);
-        }
-        if (!$request->session()->has('customer_id') || !$customer) {
+        $customer = Customer::findFromRequest($request);
+        if (!$customer) {
             $customer = new Customer;
             $customer->save();
             $request->session()->put('customer_id', $customer->id);

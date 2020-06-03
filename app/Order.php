@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = ['cutomer_id'];
+    protected $fillable = ['cutomer_id', 'comments'];
+
+    public function ordered_pizzas()
+    {
+        return $this->hasMany(OrderedPizza::class);
+    }
 }

@@ -18,7 +18,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('customer_id');
             // $table->foreignId('payment_id')->default(1); // cash
             // $table->foreignId('delivery_id')->default(1); // pickup
-            $table->text('description')->default('');
+            $table->text('comments')->default('');
             $table->boolean('is_confirmed')->default(false);
             $table->timestamps();
 

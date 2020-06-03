@@ -8,9 +8,9 @@
         </h2>
     </div>
     <div class="col text-right">
-        @isset($ordered_pizzas_number)
+        @isset($ordered_pizzas)
         <p>
-            <a href="/order" title="Open a bag">{{ $ordered_pizzas_number }}</a>
+            <a href="/order" title="Open a bag">{{ $ordered_pizzas->count() }}</a>
             pizzas in a bag
         </p>
         @endisset
