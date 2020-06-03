@@ -23,4 +23,9 @@ class Customer extends Model
         // in any other case
         return false;
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

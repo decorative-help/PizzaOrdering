@@ -17,12 +17,9 @@ class OrderController extends Controller
 
         if ($customer) {
             // get Order
-            $order = Order::where([
-                ['customer_id', '=', $customer->id],
-                ['is_confirmed', '=', false]
-            ])->latest()->firstOrFail();
+            $order = $customer->orders()->where('is_confirmed', false)->latest()->firstOrFail();
             // get OrderedPizzas
-            $ordered_pizzas = OrderedPizza::where('order_id', $order->id)->latest()->get();
+            $ordered_pizzas = $order->ordered_pizzas();
             // show also basket
             return view('order.index', [
                 'order' => $order,

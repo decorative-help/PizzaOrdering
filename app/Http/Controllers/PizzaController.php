@@ -14,19 +14,15 @@ class PizzaController extends Controller
 {
     public function index(Request $request)
     {
-
         // get Customer
         $customer = Customer::findFromRequest($request);
 
         // if Customer exists
         if ($customer) {
             // get Order
-            $order = Order::where([
-                ['customer_id', '=', $customer->id],
-                ['is_confirmed', '=', false]
-            ])->latest()->firstOrFail();
+            $order = $customer->orders()->where('is_confirmed', false)->latest()->firstOrFail();
             // get OrderedPizzas
-            $ordered_pizzas = OrderedPizza::where('order_id', $order->id)->latest()->get();
+            $ordered_pizzas = $order->ordered_pizzas();
             // show also basket
             return view('pizza.index', [
                 'pizzas' => Pizza::paginate(9),
@@ -53,31 +49,21 @@ class PizzaController extends Controller
         // get Customer
         $customer = Customer::findFromRequest($request);
         if (!$customer) {
-            $customer = new Customer;
-            $customer->save();
+            $customer = Customer::create();
             $request->session()->put('customer_id', $customer->id);
         }
 
         // get Order
-        $order = Order::where([
-            ['customer_id', '=', $customer->id],
-            ['is_confirmed', '=', false]
-        ])->latest()->first();
-
+        $order = $customer->orders()->where('is_confirmed', false)->latest()->first();
         if (!$order) {
-            $order = new Order;
-            $order->customer_id = $customer->id;
-            $order->save();
+            $order = $customer->orders()->create();
         }
 
         // set OrderedPizza
-        $ordered_pizza = new OrderedPizza;
-        $ordered_pizza->order_id = $order->id;
-        $ordered_pizza->pizza_id = $pizza->id;
-        $ordered_pizza->save();
+        $ordered_pizza = $order->ordered_pizzas()->create([
+            'pizza_id' => $pizza->id
+        ]);
 
-        // $ordered_pizzas = OrderedPizza::where('order_id', $order->id)->latest()->get();
-        // var_dump($ordered_pizzas);
         return redirect('/');
     }
 }
