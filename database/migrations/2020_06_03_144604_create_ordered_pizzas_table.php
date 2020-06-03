@@ -17,8 +17,8 @@ class CreateOrderedPizzasTable extends Migration
             $table->id();
             $table->foreignId('order_id');
             $table->foreignId('pizza_id');
-            // $table->foreignId('size_id');
-            // $table->foreignId('topping_id');
+            $table->foreignId('size_id')->default(1); // standard
+            $table->foreignId('topping_id')->default(1); // no toppings
             $table->integer('quantity')->default('1');
             $table->timestamps();
 
@@ -30,6 +30,16 @@ class CreateOrderedPizzasTable extends Migration
             $table->foreign('pizza_id')
                 ->references('id')
                 ->on('pizzas')
+                ->onDelete('cascade');
+
+            $table->foreign('size_id')
+                ->references('id')
+                ->on('sizes')
+                ->onDelete('cascade');
+
+            $table->foreign('topping_id')
+                ->references('id')
+                ->on('toppings')
                 ->onDelete('cascade');
         });
     }

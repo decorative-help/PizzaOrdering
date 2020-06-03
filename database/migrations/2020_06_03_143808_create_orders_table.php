@@ -16,8 +16,8 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('customer_id');
-            // $table->foreignId('payment_id')->default(1); // cash
-            // $table->foreignId('delivery_id')->default(1); // pickup
+            $table->foreignId('payment_id')->default(1); // cash
+            $table->foreignId('delivery_method_id')->default(1); // pickup
             $table->text('comments')->default('');
             $table->boolean('is_confirmed')->default(false);
             $table->timestamps();
@@ -27,15 +27,15 @@ class CreateOrdersTable extends Migration
                 ->on('customers')
                 ->onDelete('cascade');
 
-            // $table->foreign('payment_id')
-            //     ->references('id')
-            //     ->on('payments')
-            //     ->onDelete('cascade');
+            $table->foreign('payment_id')
+                ->references('id')
+                ->on('payments')
+                ->onDelete('cascade');
 
-            // $table->foreign('delivery_id')
-            //     ->references('id')
-            //     ->on('deliveries')
-            //     ->onDelete('cascade');
+            $table->foreign('delivery_method_id')
+                ->references('id')
+                ->on('delivery_methods')
+                ->onDelete('cascade');
         });
     }
 

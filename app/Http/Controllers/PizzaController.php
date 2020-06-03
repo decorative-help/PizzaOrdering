@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Pizza;
 use App\Customer;
+use App\DeliveryMethod;
 use App\Order;
 use App\OrderedPizza;
-
+use App\Payment;
+use App\Size;
+use App\Topping;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
@@ -16,6 +19,10 @@ class PizzaController extends Controller
     {
         $viewAttributes = [
             'pizzas' => Pizza::paginate(8),
+            'toppings' => Topping::get(),
+            'sizes' => Size::get(),
+            'payments' => Payment::get(),
+            'delivery_methods' => DeliveryMethod::get(),
         ];
         // get Customer
         $customer = Customer::findFromRequest($request);

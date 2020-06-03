@@ -16,4 +16,14 @@ class OrderedPizza extends Model
     {
         return $this->belongsTo(Pizza::class);
     }
+
+    public function topping()
+    {
+        return $this->belongsTo(Topping::class);
+    }
+
+    public function size()
+    {
+        return $this->belongsTo(Size::class);
+    }
 }

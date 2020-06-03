@@ -15,6 +15,9 @@
                 @forelse ($order->ordered_pizzas as $ordered_pizza)
                 <tr>
                     <td>{{ $ordered_pizza->pizza->name }}</td>
+                    <td>{{ $ordered_pizza->size->name }}</td>
+                    <td>{{ $ordered_pizza->topping->name }}</td>
+                    <td>{{ $ordered_pizza->quantity }}</td>
                 </tr>
                 @empty
                 <tr>
@@ -27,6 +30,25 @@
     <form action="{{ route('order.update', $order->id) }}" method="POST">
         @csrf
         @method('PATCH')
+
+        <div class="form-group">
+            <label for="selectPaymentMethod">Payment</label>
+            <select class="form-control" id="selectPaymentMethod">
+                @foreach ($payments as $payment_method)
+                <option value="{{ $payment_method->id }}">{{ $payment_method->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="selectDeliveryMethod">Delivery</label>
+            <select class="form-control" id="selectDeliveryMethod">
+                @foreach ($delivery_methods as $delivery_method)
+                <option value="{{ $delivery_method->id }}">{{ $delivery_method->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="form-group">
             <label for="textareaComments">Address and comments</label>
             <textarea class="form-control" id="textareaComments" name="comments" aria-describedby="comments"
