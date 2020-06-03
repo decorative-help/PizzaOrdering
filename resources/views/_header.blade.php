@@ -1,16 +1,16 @@
 <div class="row mb-4">
     <div class="col text-left">
-        <h1>@yield('title')</h1>
+        <h2>@yield('title')</h2>
     </div>
     <div class="col text-center">
-        <h2>
-            <a href="{{ route('home') }}" title="Menu page">🍕</a>
-        </h2>
+        <a href="{{ route('home') }}" title="Menu page">
+            <h1>🍕</h1>
+        </a>
     </div>
     <div class="col text-right">
-        @isset($ordered_pizzas)
+        @isset($order)
         <p>
-            <a href="/order" title="Open a bag">{{ $ordered_pizzas->count() }}</a>
+            {{ $order->ordered_pizzas->count() }}
             pizzas in a bag
         </p>
         @endisset

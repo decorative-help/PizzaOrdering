@@ -14,26 +14,23 @@ class PizzaController extends Controller
 {
     public function index(Request $request)
     {
+        $viewAttributes = [
+            'pizzas' => Pizza::paginate(8),
+        ];
         // get Customer
         $customer = Customer::findFromRequest($request);
 
         // if Customer exists
         if ($customer) {
             // get Order
-            $order = $customer->orders()->where('is_confirmed', false)->latest()->firstOrFail();
-            // get OrderedPizzas
-            $ordered_pizzas = $order->ordered_pizzas();
-            // show also basket
-            return view('pizza.index', [
-                'pizzas' => Pizza::paginate(9),
-                'ordered_pizzas' => $ordered_pizzas
-            ]);
-        } else {
-            // show without basket
-            return view('pizza.index', [
-                'pizzas' => Pizza::paginate(9),
-            ]);
+            $order = $customer->orders()->where('is_confirmed', false)->latest()->first();
+            if ($order) {
+                // show also basket
+                $viewAttributes['order'] = $order;
+            }
         }
+
+        return view('layout.index', $viewAttributes);
     }
 
     public function store(Request $request)
@@ -64,6 +61,6 @@ class PizzaController extends Controller
             'pizza_id' => $pizza->id
         ]);
 
-        return redirect('/');
+        return redirect()->route('home');
     }
 }

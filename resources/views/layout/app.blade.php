@@ -14,11 +14,7 @@
 </head>
 
 <body>
-    <div class="container">
-        @include('_header')
-
-        @yield('content')
-    </div>
+    @yield('layout')
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

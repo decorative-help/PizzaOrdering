@@ -10,26 +10,6 @@ use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
-    public function index(Request $request)
-    {
-        // get Customer
-        $customer = Customer::findFromRequest($request);
-
-        if ($customer) {
-            // get Order
-            $order = $customer->orders()->where('is_confirmed', false)->latest()->firstOrFail();
-            // get OrderedPizzas
-            $ordered_pizzas = $order->ordered_pizzas();
-            // show also basket
-            return view('order.index', [
-                'order' => $order,
-                'ordered_pizzas' => $ordered_pizzas
-            ]);
-        }
-        // in any other cases
-        redirect('/');
-    }
-
     public function update(Request $request, Order $order)
     {
         $validatedData = $request->validate([
@@ -38,7 +18,7 @@ class OrderController extends Controller
 
         $order->update($validatedData);
 
-        return redirect()->route('order.index');
+        return redirect()->route('home');
     }
 
     public function finish(Order $order)
@@ -48,8 +28,7 @@ class OrderController extends Controller
         ]);
 
         return view('order.finish', [
-            'order' => $order,
-            'ordered_pizzas' => $order->ordered_pizzas
+            'order' => $order
         ]);
     }
 }

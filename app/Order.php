@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $fillable = ['cutomer_id', 'comments'];
+    protected $fillable = ['cutomer_id', 'comments', 'is_confirmed'];
 
     public function ordered_pizzas()
     {

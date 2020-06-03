@@ -1,9 +1,4 @@
-@extends('app')
-
-
-@section('title', 'Menu')
-@section('content')
-<div class="row justify-content-between">
+<div class="row justify-content-around px-2">
     @forelse ($pizzas as $pizza)
     <form method="POST" action="/ordered_pizzas">
         @csrf
@@ -13,7 +8,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{ $pizza->name }}</h5>
                 <p class="card-text">{{ $pizza->description }}</p>
-                <button type="submit" class="btn btn-primary">Add to basket</button>
+                <button type="submit" class="btn btn-outline-primary btn-sm">➕ Add to basket</button>
             </div>
         </div>
     </form>
@@ -21,7 +16,6 @@
     <p>No pizzas yet</p>
     @endforelse
 </div>
-<div class="row">
+<div class="row justify-content-around">
     {{ $pizzas->links() }}
 </div>
-@endsection
