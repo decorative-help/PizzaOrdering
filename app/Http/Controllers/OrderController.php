@@ -42,7 +42,7 @@ class OrderController extends Controller
             return redirect()->route('home');
         }
         if (isset($validatedData['checkout']) && 1 == $validatedData['checkout']) {
-            return redirect()->route('order.finish');
+            return redirect()->route('order.finish', $order->id);
         }
     }
 
