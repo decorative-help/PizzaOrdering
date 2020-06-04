@@ -20,6 +20,7 @@ class CreateOrdersTable extends Migration
             $table->foreignId('delivery_method_id')->default(1); // pickup
             $table->text('comments')->default('');
             $table->boolean('is_confirmed')->default(false);
+            $table->float('total_price')->default(0);
             $table->timestamps();
 
             $table->foreign('customer_id')

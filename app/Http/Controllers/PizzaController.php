@@ -10,6 +10,7 @@ use App\OrderedPizza;
 use App\Payment;
 use App\Size;
 use App\Topping;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cookie;
 
@@ -38,36 +39,5 @@ class PizzaController extends Controller
         }
 
         return view('layout.index', $viewAttributes);
-    }
-
-    public function store(Request $request)
-    {
-        // validate
-        $validatedData = $request->validate([
-            'id' => 'required|integer|min:1'
-        ]);
-
-        // get Pizza
-        $pizza = Pizza::findOrFail($validatedData['id']);
-
-        // get Customer
-        $customer = Customer::findFromRequest($request);
-        if (!$customer) {
-            $customer = Customer::create();
-            $request->session()->put('customer_id', $customer->id);
-        }
-
-        // get Order
-        $order = $customer->orders()->where('is_confirmed', false)->latest()->first();
-        if (!$order) {
-            $order = $customer->orders()->create();
-        }
-
-        // set OrderedPizza
-        $ordered_pizza = $order->ordered_pizzas()->create([
-            'pizza_id' => $pizza->id
-        ]);
-
-        return redirect()->route('home');
     }
 }

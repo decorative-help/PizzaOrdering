@@ -20,6 +20,7 @@ class CreateOrderedPizzasTable extends Migration
             $table->foreignId('size_id')->default(1); // standard
             $table->foreignId('topping_id')->default(1); // no toppings
             $table->integer('quantity')->default('1');
+            $table->float('total_price')->default(0);
             $table->timestamps();
 
             $table->foreign('order_id')

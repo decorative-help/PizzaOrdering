@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class OrderedPizza extends Model
 {
-    protected $fillable = ['pizza_id'];
+    protected $fillable = ['pizza_id', 'topping_id', 'size_id', 'quantity', 'total_price'];
 
     public function pizza()
     {
