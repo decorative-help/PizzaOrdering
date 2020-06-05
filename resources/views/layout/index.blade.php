@@ -1,9 +1,9 @@
 <x-app title="Menu">
     <div class="container-fluid">
         @if (isset($order))
-        <x-header title="Menu" :order="$order" />
+        <x-header title="Menu Page" :order="$order" />
         @else
-        <x-header title="Menu" />
+        <x-header title="Menu Page" />
         @endif
         <div class="row justify-content-around">
             <div class="col-md-8">
