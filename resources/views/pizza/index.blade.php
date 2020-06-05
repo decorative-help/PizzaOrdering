@@ -1,6 +1,6 @@
 <div class="row justify-content-around px-2">
     @forelse ($pizzas as $pizza)
-    <x-form method="POST" action="/ordered_pizzas">
+    <x-form method="POST" action="{{ route('ordered_pizza.store') }}">
         <input type="hidden" name="id" value="{{ $pizza->id }}">
         <div class="card mb-4" style="width: 16rem;">
             <div class="card-header">

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PizzaController@index')->name('home');
 
-Route::post('/ordered_pizzas', 'OrderedPizzaController@store');
+Route::post('/ordered_pizzas', 'OrderedPizzaController@store')->name('ordered_pizza.store');
 Route::delete('/ordered_pizzas/{ordered_pizza:id}', 'OrderedPizzaController@destroy')->name('ordered_pizza.destroy');
 
 Route::patch('/orders/{order:id}', 'OrderController@update')->name('order.update');
