@@ -90,16 +90,27 @@
             <label for="inputTotalPrice" class="col-sm-2 col-form-label">Total:</label>
             <div class="col-sm-10 text-right">
                 <p>
-                    <small class="text-muted"><i>Payment: {{ $order->payment->price_factor*100 - 100 }}%</i></small>
+                    <small class="text-muted">
+                        <i>
+                            Payment:
+                            @if (($order->payment->price_factor*100 - 100)<0) <mark>
+                                {{ $order->payment->price_factor*100 - 100 }}%</mark>
+                                @else
+                                {{ $order->payment->price_factor*100 - 100 }}%
+                                @endif
+                        </i>
+                    </small>
                     <br>
-                    <small class="text-muted"><i>Delivery: ${{ $order->delivery_method->price_factor}}</i></small>
+                    <small class="text-muted"><i>Delivery:
+                            ${{ $order->delivery_method->price_factor}}</i></small>
                     <br>
                     <strong>${{ $order->total_price }}</strong>
                     @foreach ($currencies as $currency)
                     <br>
                     <small class="text-muted">
                         <i>
-                            {{ $currency->name }}: {{ round($order->total_price * $currency->price_factor, 2) }}
+                            {{ $currency->name }}:
+                            {{ round($order->total_price * $currency->price_factor, 2) }}
                         </i>
                     </small>
                     @endforeach

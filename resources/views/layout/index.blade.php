@@ -1,6 +1,6 @@
 <x-app title="Menu">
     <div class="container-fluid">
-        <x-header title="Menu" />
+        <x-header title="Menu" :order="$order" />
         <div class="row justify-content-around">
             <div class="col-md-8">
                 @include('pizza.index')

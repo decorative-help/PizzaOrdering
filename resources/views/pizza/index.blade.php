@@ -8,7 +8,7 @@
             </div>
             <img src="{{ $pizza->image_link }}" class="card-img-top img-fluid" alt="{{ $pizza->name }}">
             <div class="card-body">
-                <p class="card-text">{{ $pizza->description }}</p>
+                <p class="card-text text-justify">{{ $pizza->description }}</p>
 
                 <div class="input-group mb-2 mr-sm-2 input-group-sm">
                     <div class="input-group-prepend">
