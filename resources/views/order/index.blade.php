@@ -1,4 +1,4 @@
-<div class="row px-2">
+<div class="row px-2" id="basket">
     @if (isset($order))
     <div class="table-responsive">
         <table class="table table-borderless table-hover table-sm">
