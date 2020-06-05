@@ -80,8 +80,8 @@
         <div class="form-group">
             <label for="textareaComments">Address and comments</label>
             <textarea class="form-control form-control-sm" id="textareaComments" name="comments"
-                aria-describedby="comments"
-                placeholder="Intercom is 453. The red door">{{ old('comments') ?? $order->comments }}</textarea>
+                aria-describedby="comments" placeholder="Intercom is 453. The red door"
+                required>{{ old('comments') ?? $order->comments }}</textarea>
             <small id="comments" class="form-text text-muted">Your intercom pincode and floor number
                 speed up our
                 delivery</small>

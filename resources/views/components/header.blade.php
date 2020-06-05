@@ -10,12 +10,11 @@
     <div class="col text-right">
         @isset($order)
         <p>
-            <small class="text-muted">
-                <a href="#basket">
-                    <span class="badge badge-light">{{ $order->ordered_pizzas->count() }}</span>
-                    pizzas in a bag
-                </a>
-            </small>
+            <a href="#basket" class="btn btn-light">
+                🛒
+                <span class="badge badge-secondary">{{ $order->ordered_pizzas->count() }}</span>
+                pizzas in a bag
+            </a>
         </p>
         @endisset
     </div>
