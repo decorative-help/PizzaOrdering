@@ -1,6 +1,10 @@
 <x-app title="Menu">
     <div class="container-fluid">
+        @if (isset($order))
         <x-header title="Menu" :order="$order" />
+        @else
+        <x-header title="Menu" />
+        @endif
         <div class="row justify-content-around">
             <div class="col-md-8">
                 @include('pizza.index')

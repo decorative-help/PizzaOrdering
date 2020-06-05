@@ -8,12 +8,27 @@
             <a class="btn btn-primary btn-lg" href="tel:87882323" role="button">Call Pizza Assistant</a>
             <hr class="my-4">
             <p>
-                Total price - ${{ $order->total_price }}
+                <small class="text-muted">
+                    <i>
+                        Payment:
+                        @if (($order->payment->price_factor*100 - 100)<0) <mark>
+                            {{ $order->payment->price_factor*100 - 100 }}%</mark>
+                            @else
+                            {{ $order->payment->price_factor*100 - 100 }}%
+                            @endif
+                    </i>
+                </small>
+                <br>
+                <small class="text-muted"><i>Delivery:
+                        ${{ $order->delivery_method->price_factor}}</i></small>
+                <br>
+                <strong>${{ $order->total_price }}</strong>
                 @foreach ($currencies as $currency)
                 <br>
                 <small class="text-muted">
                     <i>
-                        {{ $currency->name }}: {{ round($order->total_price * $currency->price_factor, 2) }}
+                        {{ $currency->name }}:
+                        {{ round($order->total_price * $currency->price_factor, 2) }}
                     </i>
                 </small>
                 @endforeach
