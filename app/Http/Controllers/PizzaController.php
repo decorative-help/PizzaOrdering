@@ -24,6 +24,7 @@ class PizzaController extends Controller
             'toppings' => Topping::get(),
             'sizes' => Size::get(),
             'payments' => Payment::get(),
+            'currencies' => Currency::all(),
             'delivery_methods' => DeliveryMethod::get(),
         ];
         // get Customer
@@ -36,7 +37,6 @@ class PizzaController extends Controller
             if ($order) {
                 // show also basket
                 $viewAttributes['order'] = $order;
-                $viewAttributes['currencies'] = Currency::all();
             }
         }
 

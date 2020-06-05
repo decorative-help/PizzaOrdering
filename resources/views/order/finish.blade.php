@@ -7,7 +7,17 @@
             <p>Remember it to identify your order</p>
             <a class="btn btn-primary btn-lg" href="tel:87882323" role="button">Call Pizza Assistant</a>
             <hr class="my-4">
-            <p>Total price - ${{ $order->total_price }}</p>
+            <p>
+                Total price - ${{ $order->total_price }}
+                @foreach ($currencies as $currency)
+                <br>
+                <small class="text-muted">
+                    <i>
+                        {{ $currency->name }}: {{ round($order->total_price * $currency->price_factor, 2) }}
+                    </i>
+                </small>
+                @endforeach
+            </p>
         </div>
     </div>
 </div>
@@ -41,7 +51,15 @@
                     </td>
                     <td>
                         ${{ $ordered_pizza->total_price }}
-                        <small class="text-muted">€{{ $ordered_pizza->total_price * 1.2 }}</small>
+                        @foreach ($currencies as $currency)
+                        <br>
+                        <small class="text-muted">
+                            <i>
+                                {{ $currency->name }}:
+                                {{ round($ordered_pizza->total_price * $currency->price_factor, 2) }}
+                            </i>
+                        </small>
+                        @endforeach
                     </td>
                 </tr>
                 @endforeach

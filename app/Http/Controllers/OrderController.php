@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Currency;
 use App\DeliveryMethod;
 use App\Order;
 use App\OrderedPizza;
 use App\Payment;
+
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -56,7 +58,8 @@ class OrderController extends Controller
         ]);
 
         return view('layout.checkout', [
-            'order' => $order
+            'order' => $order,
+            'currencies' => Currency::all(),
         ]);
     }
 

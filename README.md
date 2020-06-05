@@ -52,7 +52,11 @@
 ## Populate DB
 
 > factory(App\Pizza::class, 35)->create();
+
 > factory(App\DeliveryMethod::class, 2)->create();
+
 > factory(App\Payment::class, 2)->create();
+
 > factory(App\Size::class, 8)->create();
+
 > factory(App\Topping::class, 20)->create();
