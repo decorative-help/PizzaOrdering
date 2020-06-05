@@ -56,4 +56,21 @@ class OrderController extends Controller
             'order' => $order
         ]);
     }
+
+    public static function recalculate($order_id)
+    {
+        // get Order
+        $order = Order::findOrFail($order_id);
+        // sum OrderedPizza`s total prices
+        $orderedPizzas_total_price = $order->ordered_pizzas()->pluck('total_price')->sum();
+        // sum Order total price
+        $order_total_price =
+            $orderedPizzas_total_price
+            + $orderedPizzas_total_price * $order->payment->price_factor
+            + $orderedPizzas_total_price * $order->delivery_method->price_factor;
+
+        $order->update([
+            'total_price' => $order_total_price,
+        ]);
+    }
 }

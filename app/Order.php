@@ -12,4 +12,14 @@ class Order extends Model
     {
         return $this->hasMany(OrderedPizza::class);
     }
+
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
+    }
+
+    public function delivery_method()
+    {
+        return $this->belongsTo(DeliveryMethod::class);
+    }
 }

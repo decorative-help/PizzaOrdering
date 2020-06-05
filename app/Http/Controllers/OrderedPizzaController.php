@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Pizza;
 use App\Customer;
 use App\DeliveryMethod;
+use App\Events\PizzaAdded;
+use App\Events\PizzaRemoved;
 use App\Order;
 use App\OrderedPizza;
 use App\Payment;
@@ -55,12 +57,18 @@ class OrderedPizzaController extends Controller
             'total_price' => ($pizza->basic_price + $topping->price_factor + $size->price_factor * $pizza->basic_price) * $quantity
         ]);
 
+        // trigger Events
+        PizzaAdded::dispatch($order->id);
+
         return redirect()->route('home');
     }
 
     public function destroy(OrderedPizza $ordered_pizza)
     {
         $ordered_pizza->delete();
+
+        // trigger Events
+        PizzaRemoved::dispatch($ordered_pizza->order_id);
 
         return redirect()->route('home');
     }
