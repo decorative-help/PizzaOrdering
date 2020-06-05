@@ -25,7 +25,10 @@ class OrderController extends Controller
         $delivery_method = DeliveryMethod::findOrFail($validatedData['delivery_method_id']);
 
         $validatedData['total_price'] = $order->ordered_pizzas()->pluck('total_price')->sum();
-        $validatedData['total_price'] = $validatedData['total_price'] + $validatedData['total_price'] * $payment->price_factor + $validatedData['total_price'] * $delivery_method->price_factor;
+        $validatedData['total_price'] =
+            $validatedData['total_price']
+            + $validatedData['total_price'] * $payment->price_factor
+            + $delivery_method->price_factor;
 
         if (null === $validatedData['comments']) {
             $validatedData['comments'] = '';
@@ -52,7 +55,7 @@ class OrderController extends Controller
             'is_confirmed' => true
         ]);
 
-        return view('order.finish', [
+        return view('layout.checkout', [
             'order' => $order
         ]);
     }
@@ -67,7 +70,7 @@ class OrderController extends Controller
         $order_total_price =
             $orderedPizzas_total_price
             + $orderedPizzas_total_price * $order->payment->price_factor
-            + $orderedPizzas_total_price * $order->delivery_method->price_factor;
+            + $order->delivery_method->price_factor;
 
         $order->update([
             'total_price' => $order_total_price,

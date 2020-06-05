@@ -8,6 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Topping::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
-        'price_factor' => $faker->randomFloat(2, 0, 99),
+        'price_factor' => $faker->randomFloat(1, 2, 15),
     ];
 });

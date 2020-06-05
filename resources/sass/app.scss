@@ -1,1 +1,11 @@
-//
+// Display on hover
+.secret__item {
+    visibility: hidden;
+}
+.secret {
+    &:hover .secret__item,
+    &:focus .secret__item,
+    &:focus-within .secret__item {
+        visibility: visible;
+    }
+}

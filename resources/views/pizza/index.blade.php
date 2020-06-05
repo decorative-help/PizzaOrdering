@@ -8,7 +8,6 @@
             </div>
             <img src="{{ $pizza->image_link }}" class="card-img-top img-fluid" alt="{{ $pizza->name }}">
             <div class="card-body">
-                <h5 class="card-title">${{ $pizza->basic_price }}</h5>
                 <p class="card-text">{{ $pizza->description }}</p>
 
                 <div class="input-group mb-2 mr-sm-2 input-group-sm">
@@ -48,8 +47,14 @@
                 </div>
 
             </div>
-            <div class="card-footer text-muted">
-                <button type="submit" class="btn btn-outline-primary btn-sm">➕ Add to basket</button>
+            <div class="card-footer d-flex flex-row">
+                <div class="col-md-4 px-0">${{ $pizza->basic_price }}</div>
+                <div class="col-md-8 px-0"><button type="submit" class="btn btn-outline-primary btn-sm">➕ Add
+                        to
+                        basket</button>
+                </div>
+
+
             </div>
         </div>
     </x-form>

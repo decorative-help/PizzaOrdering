@@ -8,6 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Payment::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
-        'price_factor' => $faker->randomFloat(2, 0, 2),
+        'price_factor' => $faker->randomFloat(1, 0.5, 1.5),
     ];
 });

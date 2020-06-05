@@ -54,7 +54,7 @@ class OrderedPizzaController extends Controller
             'topping_id' => $topping->id,
             'size_id' => $size->id,
             'quantity' => $quantity,
-            'total_price' => ($pizza->basic_price + $topping->price_factor + $size->price_factor * $pizza->basic_price) * $quantity
+            'total_price' => $quantity * ($pizza->basic_price + $topping->price_factor + $pizza->basic_price * $size->price_factor),
         ]);
 
         // trigger Events

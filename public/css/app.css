@@ -1,0 +1,10 @@
+.secret__item {
+  visibility: hidden;
+}
+
+.secret:hover .secret__item,
+.secret:focus .secret__item,
+.secret:focus-within .secret__item {
+  visibility: visible;
+}
+
