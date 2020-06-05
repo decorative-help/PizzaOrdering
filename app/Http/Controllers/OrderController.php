@@ -28,8 +28,7 @@ class OrderController extends Controller
 
         $validatedData['total_price'] = $order->ordered_pizzas()->pluck('total_price')->sum();
         $validatedData['total_price'] =
-            $validatedData['total_price']
-            + $validatedData['total_price'] * $payment->price_factor
+            $validatedData['total_price'] * $payment->price_factor
             + $delivery_method->price_factor;
 
         if (null === $validatedData['comments']) {
@@ -71,8 +70,7 @@ class OrderController extends Controller
         $orderedPizzas_total_price = $order->ordered_pizzas()->pluck('total_price')->sum();
         // sum Order total price
         $order_total_price =
-            $orderedPizzas_total_price
-            + $orderedPizzas_total_price * $order->payment->price_factor
+            $orderedPizzas_total_price * $order->payment->price_factor
             + $order->delivery_method->price_factor;
 
         $order->update([

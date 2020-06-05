@@ -38,7 +38,7 @@
 -   Delivery Method ID
 -   Comments
 -   IsConfirmed
--   Total Price = SUM( OrderedPizza::TotalPrice ) + SUM( OrderedPizza::TotalPrice ) \* Payment::PriceFactor + DeliveryMethod::PriceFactor
+-   Total Price = SUM( OrderedPizza::TotalPrice ) \* Payment::PriceFactor + DeliveryMethod::PriceFactor
 
 ### Ordered Pizza
 
@@ -47,7 +47,7 @@
 -   Size ID
 -   Topping ID
 -   Quantity
--   Total Price = Quantity \* ( Pizza::BasicPrice + Topping::Price + Pizza::BasicPrice \* Size::PriceFactor)
+-   Total Price = Quantity \* (Pizza::BasicPrice \* Size::PriceFactor + Topping::Price )
 
 ## Populate DB
 
@@ -60,3 +60,9 @@
 > factory(App\Size::class, 8)->create();
 
 > factory(App\Topping::class, 20)->create();
+
+## Seeding
+
+Real data
+
+> php artisan migrate:fresh --seed
