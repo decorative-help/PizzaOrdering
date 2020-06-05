@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Currency;
 use App\Pizza;
 use App\Customer;
 use App\DeliveryMethod;
@@ -35,6 +36,7 @@ class PizzaController extends Controller
             if ($order) {
                 // show also basket
                 $viewAttributes['order'] = $order;
+                $viewAttributes['currencies'] = Currency::all();
             }
         }
 

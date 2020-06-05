@@ -95,6 +95,14 @@
                     <small class="text-muted"><i>Delivery: ${{ $order->delivery_method->price_factor}}</i></small>
                     <br>
                     <strong>${{ $order->total_price }}</strong>
+                    @foreach ($currencies as $currency)
+                    <br>
+                    <small class="text-muted">
+                        <i>
+                            {{ $currency->name }}: {{ round($order->total_price * $currency->price_factor, 2) }}
+                        </i>
+                    </small>
+                    @endforeach
                 </p>
             </div>
         </div>
